@@ -12,10 +12,13 @@
 
 # testing
 /coverage
+/test-results
+/playwright-report
 
 # next.js
 /.next/
 /out/
+.turbo
 
 # production
 /build
@@ -30,12 +33,22 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# env files — example é commitado, o resto não
+.env
+.env.*
+!.env.example
 
 # vercel
 .vercel
 
+# trigger.dev
+.trigger
+
+# sentry
+.sentryclirc
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# NOTE: a pasta drizzle/ (migrations + meta/) DEVE ser commitada.
