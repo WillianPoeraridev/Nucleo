@@ -223,7 +223,8 @@ nucleo/
 - Sessões em DB (não JWT)
 - Server Components: `await getSession()` helper
 - Server Actions: `await requireSession()` helper
-- Middleware NÃO valida sessão (CVE-2025-29927) — só roteia
+- `src/proxy.ts` (sucessor do `middleware` no Next 16) NÃO valida sessão
+  (CVE-2025-29927) — só roteia. Validação acontece nos Server Components.
 
 ## Roadmap geral
 
@@ -237,8 +238,10 @@ S0 em andamento.
 - Parte 1 (init repo + Biome + estrutura) — concluída
 - Parte 2 (design system base brutalist) — concluída
 - Parte 3 (DB Neon + Drizzle + scopedDb) — concluída; migration 0000 aplicada no branch `dev`
-- Parte 4 (Better-Auth) — próxima; tabela `user` já existe, falta `session`/`account`/`verification`
+- Parte 4 (Better-Auth + consent flow) — concluída; migration 0001; smoke test signup/verify/login OK
+- Parte 5 (Resend + email verification) — próxima; precisa de conta Resend
 
-Decisões fechadas nesta fase: Next.js 16 (não 15); Better-Auth é dono da tabela `user`;
+Decisões fechadas: Next.js 16 (não 15); Better-Auth é dono da tabela `user`;
 todas as colunas de data em `timestamptz`; driver `neon-http` (sem transações interativas —
-revisitar na Parte 7 se o hard delete precisar).
+revisitar na Parte 7 se o hard delete precisar); `proxy.ts` substitui `middleware.ts` (Next 16);
+dev roda em :3001 (porta 3000 ocupada por outro projeto) — `BETTER_AUTH_URL` aponta pra :3001.
