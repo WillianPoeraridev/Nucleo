@@ -8,6 +8,13 @@
       "when": 1779040594989,
       "tag": "0000_initial_identity_lgpd_waitlist",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1779055320103,
+      "tag": "0001_better_auth_tables",
+      "breakpoints": true
     }
   ]
 }
