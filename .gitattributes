@@ -1,0 +1,11 @@
+# Normaliza fim de linha — Biome formata com LF, mantém consistente no repo.
+* text=auto eol=lf
+
+# Binários
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
