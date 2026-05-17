@@ -233,4 +233,9 @@ S0 Foundation · S1 Identity/North Star · S2 Módulos CORPO · S3 Módulos MENT
 
 ## Estado atual
 
-S0 em andamento. Parte 1 (init repo + Biome + estrutura) concluída.
+S0 em andamento.
+- Parte 1 (init repo + Biome + estrutura) — concluída
+- Parte 2 (design system base brutalist) — concluída
+- Parte 3 (DB Neon + Drizzle) — bloqueada: precisa de `DATABASE_URL` do Neon
+
+Decisões fechadas nesta fase: Next.js 16 (não 15); Better-Auth é dono da tabela `user`.
