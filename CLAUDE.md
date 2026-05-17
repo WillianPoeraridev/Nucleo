@@ -236,6 +236,9 @@ S0 Foundation · S1 Identity/North Star · S2 Módulos CORPO · S3 Módulos MENT
 S0 em andamento.
 - Parte 1 (init repo + Biome + estrutura) — concluída
 - Parte 2 (design system base brutalist) — concluída
-- Parte 3 (DB Neon + Drizzle) — bloqueada: precisa de `DATABASE_URL` do Neon
+- Parte 3 (DB Neon + Drizzle + scopedDb) — concluída; migration 0000 aplicada no branch `dev`
+- Parte 4 (Better-Auth) — próxima; tabela `user` já existe, falta `session`/`account`/`verification`
 
-Decisões fechadas nesta fase: Next.js 16 (não 15); Better-Auth é dono da tabela `user`.
+Decisões fechadas nesta fase: Next.js 16 (não 15); Better-Auth é dono da tabela `user`;
+todas as colunas de data em `timestamptz`; driver `neon-http` (sem transações interativas —
+revisitar na Parte 7 se o hard delete precisar).
