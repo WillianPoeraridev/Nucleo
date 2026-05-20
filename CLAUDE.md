@@ -234,12 +234,12 @@ S0 Foundation · S1 Identity/North Star · S2 Módulos CORPO · S3 Módulos MENT
 
 ## Estado atual
 
-S0 em andamento.
-- Parte 1 (init repo + Biome + estrutura) — concluída
-- Parte 2 (design system base brutalist) — concluída
-- Parte 3 (DB Neon + Drizzle + scopedDb) — concluída; migration 0000 aplicada no branch `dev`
-- Parte 4 (Better-Auth + consent flow) — concluída; migration 0001; smoke test signup/verify/login OK
-- Parte 5 (Resend + email verification) — próxima; precisa de conta Resend
+S0 em andamento. **Progresso detalhado e checklists em [`docs/roadmap.md`](./docs/roadmap.md)** —
+atualizar lá a cada parte concluída.
+
+Resumo:
+- S0.1–S0.4 concluídas (setup, design system, banco, auth+consents). Migrations `0000` e `0001` aplicadas no branch `dev`.
+- Próxima: S0.5 (Resend + email verification) — bloqueia em conta Resend.
 
 Decisões fechadas: Next.js 16 (não 15); Better-Auth é dono da tabela `user`;
 todas as colunas de data em `timestamptz`; driver `neon-http` (sem transações interativas —
