@@ -3,7 +3,7 @@
 > Fonte de verdade do progresso. Atualizado a cada parte concluída.
 > Referenciado pelo `CLAUDE.md` (seção "Estado atual").
 
-**Hoje:** S0 · Parte 4 de 9 concluída. Próxima: S0.5 (Resend).
+**Hoje:** S0 · Parte 5 de 9 concluída. Próxima: S0.6 (Landing brutalist + waitlist).
 
 ---
 
@@ -60,10 +60,13 @@ o S1 em diante apoiar com segurança.
   signup grava 3 consentimentos. `proxy.ts` substitui `middleware.ts` (Next 16).
   Smoke test signup → verify → login validado.
 
-- [ ] **S0.5 — Resend + email verification**
-  Resend SDK + templates React Email, callback `sendVerificationEmail` real,
-  email de welcome após confirmação, server action `sendEmail` com retry.
-  Bloqueia em: conta Resend criada + `RESEND_API_KEY` no `.env.local`.
+- [x] **S0.5 — Resend + email verification**
+  Resend SDK 6.12 + `@react-email/components`. Helper `sendEmail` com retry
+  exponencial (3 tentativas). Logger estruturado em `src/lib/logger.ts`.
+  Templates brutalist: `VerifyEmail`, `Welcome`, `MagicLink` (pré-pronto pra S0.6),
+  `WaitlistConfirmation` (pré-pronto pra S0.6). Better-Auth pluga
+  `sendVerificationEmail` e `afterEmailVerification` → emails reais via Resend.
+  Sender de teste `onboarding@resend.dev` (domínio próprio entra na S0.9).
 
 - [ ] **S0.6 — Landing brutalist + waitlist**
   Layout marketing, landing principal (hero, tese, pilares, persona, CTA),

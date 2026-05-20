@@ -240,8 +240,9 @@ S0 em andamento. **Progresso detalhado e checklists em [`docs/roadmap.md`](./doc
 atualizar lá a cada parte concluída.
 
 Resumo:
-- S0.1–S0.4 concluídas (setup, design system, banco, auth+consents). Migrations `0000` e `0001` aplicadas no branch `dev`.
-- Próxima: S0.5 (Resend + email verification) — bloqueia em conta Resend.
+- S0.1–S0.5 concluídas (setup, design system, banco, auth+consents, emails reais via Resend).
+- Migrations `0000` e `0001` aplicadas no branch `dev`.
+- Próxima: S0.6 (Landing brutalist + waitlist) — bloqueia em handle Instagram + domínio reservados.
 
 Decisões fechadas: Next.js 16 (não 15); Better-Auth é dono da tabela `user`;
 todas as colunas de data em `timestamptz`; driver `neon-http` (sem transações interativas —
