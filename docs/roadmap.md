@@ -7,6 +7,30 @@
 
 ---
 
+## Trilha paralela — MoneyBrand
+
+Distribuição roda em paralelo ao build técnico desde a S0. Sem audiência
+aquecida, o lançamento técnico-perfeito morre na praia. Esta seção lista
+apenas **fases e marcos** alinhados aos sprints; **cadência de conteúdo e
+plano operacional vivem fora deste repo** (no vault Obsidian do dono do
+projeto).
+
+| Fase                                          | Paralelo a | Marco                                |
+| --------------------------------------------- | ---------- | ------------------------------------ |
+| Setup do perfil + plano de 7 dias             | S0.1–S0.5  | Conta no ar, primeiros posts         |
+| Construção em público (bastidor diário)       | S0.6–S2    | Lista de espera ativa e crescendo    |
+| Esquentamento + screenshots reais do produto  | S3–S6      | Conteúdo educativo + provas visuais  |
+| Pré-lançamento + anúncio Turma Fundadores     | S7–S8      | Wait-list segmentada, comunicação    |
+| Beta privado convidado                        | S9         | 5–10 convidados validando o produto  |
+| Abertura pública Turma Fundadores             | S10        | Lista de espera tem acesso 48h antes |
+
+**Bloqueadores estratégicos:**
+
+- [ ] Handle Instagram validado e reservado (`@nucleo` ou variação) — bloqueia S0.6
+- [ ] Domínio definido e reservado — bloqueia S0.6
+
+---
+
 ## S0 · Foundation
 
 Alicerce do produto. Sem nada de UI de cliente ainda — só infraestrutura para
@@ -45,6 +69,8 @@ o S1 em diante apoiar com segurança.
   Layout marketing, landing principal (hero, tese, pilares, persona, CTA),
   página `/manifesto`, server action `joinWaitlist` com UTM e dedupe, email de
   confirmação, páginas placeholder `/privacy` e `/termos`.
+  **Marco estratégico:** lista de espera oficialmente aberta ao público.
+  **Bloqueia em:** handle Instagram + domínio reservados — ver Trilha MoneyBrand.
 
 - [ ] **S0.7 — LGPD operacional (deletion + export)**
   Server actions `requestDataDeletion` / `cancelDataDeletion` /
@@ -91,40 +117,60 @@ o S1 em diante apoiar com segurança.
 
 Cada sprint é uma fatia do Núcleo. Detalhamento operacional vem quando S0 fechar.
 
-- [ ] **S1 — Identity & North Star + Onboarding cerimonial**
-  Identity Statements, valores, visão de 3 anos, número da liberdade
-  financeira, projetos âncora. Dashboard ganha o primeiro conteúdo real.
+- [ ] **S1 — Módulo PROPÓSITO (North Star) + Onboarding cerimonial**
+  Profundidade: **ALTA**. Onboarding registra identity statements e valores
+  em `profiles`; o módulo PROPÓSITO grava `vision_3y` + freedom number +
+  freedom target date + projetos âncora em `north_star` / `projects`.
+  Dashboard ganha o primeiro conteúdo real.
 
 - [ ] **S2 — Módulos CORPO**
-  Sono · Treino · Nutrição. Treino é profundidade ALTA.
+  Sono (**MÉDIA**) · Treino (**ALTA**) · Nutrição (**LEVE** — captura 15–30s
+  por refeição).
 
 - [ ] **S3 — Módulos MENTE**
-  Foco · Ansiedade · Aprendizado. Ansiedade é dado sensível LGPD —
-  `audit_log` obrigatório.
+  Foco (**MÉDIA**) · Ansiedade (**input LEVE**, valor ALTO nas correlações
+  geradas pela IA na S6; dado sensível LGPD, `audit_log` obrigatório) ·
+  Aprendizado (**MÉDIA**).
 
 - [ ] **S4 — Módulos MUNDO**
-  Finanças · Relação · Vícios. Finanças profundidade ALTA (digitação manual,
-  anti Open Finance). Vícios é dado sensível.
+  Finanças (**ALTA** — digitação manual, anti Open Finance) · Relação
+  (**MÉDIA** — single-user no MVP, sem feature de casal) · Vícios (**input
+  LEVE**; dado sensível LGPD).
 
-- [ ] **S5 — Orquestração + Dashboard**
-  Cockpit unindo os 10 módulos, weekly review, métricas cruzadas.
+- [ ] **S5 — Orquestração + Coreografia diária**
+  Cockpit unindo os 10 módulos + momentos contextuais de uso: manhã
+  cerimonial (~90s) · pós-treino (~30s) · meio-dia (~45s) · janela de vícios
+  (~1min) · fechamento (~3–5min) · wind-down (passivo). **Weekly Review v1**
+  com regras simples (sem IA — vem na S6). UX detalhada de cada momento é
+  trabalho desta sprint, não pré-decidida no roadmap.
 
 - [ ] **S6 — AI Layer v1**
   Claude API (Sonnet 4.6 análise, Haiku 4.5 latência baixa), pgvector,
-  jobs Trigger.dev. IA cruza módulos pra revelar padrões.
+  jobs Trigger.dev. Pipeline de detecção de correlações cruzadas entre
+  módulos. **Weekly Review v2 (IA gerativa)** substitui a versão simples
+  da S5 — iterativo, não retrabalho.
 
 - [ ] **S7 — Monthly narrative + chat**
-  Narrativa mensal gerada por IA + chat sobre os próprios dados.
+  Narrativa mensal gerada por IA (2–3 páginas de prosa pessoal sobre o mês).
+  Chat conversacional sobre os próprios dados, com `tool_use` buscando
+  contexto estruturado e RAG em `journal_embeddings`. **Quarterly Review
+  template** entra aqui também.
 
 - [ ] **S8 — Billing Cakto**
-  Checkout, webhooks, garantia 14 dias, escada de pricing
-  (Fundadores R$1.997 → Beta R$2.997 → Núcleo R$4.997).
+  Checkout, webhooks, garantia 14 dias incondicional, escada de pricing
+  (Fundadores R$1.997 → Beta R$2.997 → Núcleo R$4.997). Modelo: pagamento
+  único + **acesso por 12 meses (não vitalício)**. Tabela `access_grants`
+  com `valid_until` explícito.
 
-- [ ] **S9 — LGPD completo + polish + beta fechado**
-  Refino LGPD, otimizações, beta fechado com Turma Fundadores.
+- [ ] **S9 — Beta privado + polish + refino LGPD**
+  Beta privado com 5–10 convidados **não-pagantes** pra validar UX e cobrir
+  bugs. Refino LGPD final (deletion job em 15 dias rodando, hard delete
+  testado), revisão jurídica da Política de Privacidade, plano Neon adequado
+  + PITR ≥ 7 dias.
 
-- [ ] **S10 — Launch**
-  Lançamento público.
+- [ ] **S10 — Launch Turma Fundadores**
+  Abertura pública da Turma Fundadores **R$1.997** com 30–50 vagas. Lista
+  de espera tem acesso 48h antes do público geral. Primeira venda real.
 
 ---
 
