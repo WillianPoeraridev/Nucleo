@@ -49,6 +49,7 @@ Homem 28-38, profissional ambicioso em construção de vida adulta séria. Renda
 14. **Created_at / updated_at** em toda tabela
 15. **Commits convencionais** (feat:, fix:, refactor:, docs:, etc.)
 16. **Cada PR/feature precisa de teste** (Vitest ou Playwright dependendo do tipo)
+17. **Revogação de consentimento NÃO dispara exclusão.** São ações independentes (ver ADR 0001).
 
 ## Stack técnica
 
@@ -114,7 +115,8 @@ O Núcleo coleta dados sensíveis (LGPD Art. 5): saúde mental (ansiedade), padr
 **Obrigações operacionais:**
 - Consentimento explícito no onboarding pra processamento de dados sensíveis (não checkbox enterrado em ToS)
 - Audit log de toda leitura/escrita em dados sensíveis
-- Right to erasure: hard delete em até 15 dias após pedido
+- **Revogação de consentimento (Art. 8º §5º):** pausa imediata do processamento naquela categoria; dados ficam preservados, não excluídos.
+- **Exclusão de conta (Art. 18 V):** ação separada e explícita; hard delete em até 15 dias após pedido. Ver [ADR 0001](./docs/decisions/0001-revogacao-vs-exclusao-lgpd.md).
 - Data portability: export JSON completo dos dados do usuário
 - Breach notification: 3 dias úteis pra ANPD + usuários afetados
 - Privacy Policy + Termos de Uso em português claro

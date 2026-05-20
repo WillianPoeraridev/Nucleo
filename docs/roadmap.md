@@ -80,6 +80,10 @@ o S1 em diante apoiar com segurança.
 - [ ] CI verde em PR de teste
 - [ ] Audit log funcional (verificável no DB)
 - [ ] `CLAUDE.md` raiz atualizado se algo mudou no caminho
+- [ ] **Neon:** plano adequado para produção + PITR ≥ 7 dias no branch `production`
+  (free plan dá apenas 24h de PITR — insuficiente pra venda real)
+- [ ] **Política de Privacidade revisada** — advogado ou, no mínimo, modelo
+  conservador validado — antes do lançamento da Turma Fundadores
 
 ---
 
@@ -130,16 +134,34 @@ Cada sprint é uma fatia do Núcleo. Detalhamento operacional vem quando S0 fech
 - **Better-Auth dono da tabela `user`** — domínio FK em `user.id`.
 - **`generateId: false`** — Postgres gera UUID via `gen_random_uuid()`.
 - **Todas as datas em `timestamptz`** — UTC absoluto, com timezone explícito.
-- **Driver `neon-http`** — sem transações interativas. Revisitar na Parte 7
-  se o hard delete LGPD exigir transação real.
 - **`proxy.ts` substitui `middleware.ts`** — convenção do Next 16.
 - **Dev roda em `localhost:3001`** — porta 3000 está ocupada por outro projeto
   do dono do repo; `BETTER_AUTH_URL` aponta pra 3001.
-- **Isolamento application-level** com `scopedDb`, não RLS — `docs/decisions/`
-  documenta na S0.9.
+- **Isolamento application-level** com `scopedDb`, não RLS — ADR descritivo
+  entra em S0.9.
+- **Revogação de consentimento ≠ exclusão de conta** — ações independentes.
+  Ver [ADR 0001](decisions/0001-revogacao-vs-exclusao-lgpd.md).
 
-## Pendência aberta (a decidir antes da S0.7)
+## ADRs registrados
 
-**Revogar consentimento de dados sensíveis disparar exclusão automática da conta?**
-O prompt original mandava sim. Sugestão (minha): separar — revogar pausa o
-processamento, exclusão é uma ação à parte e explícita. Decisão na S0.7.
+- [`0001` — Revogação de consentimento ≠ Exclusão de conta](decisions/0001-revogacao-vs-exclusao-lgpd.md)
+
+## Pendência aberta — driver Neon (a decidir em S0.7)
+
+O driver **`neon-http`** que está em uso é stateless e rápido, mas **não suporta
+transações interativas**. O `hardDeleteUserData()` da S0.7 vai deletar de
+8+ tabelas em sequência respeitando FKs; sem transação, uma falha no meio
+deixa o usuário em estado parcial — pior que não deletar do ponto de vista
+LGPD (registros sem consentimento, multa potencial ANPD).
+
+**Opções:**
+
+- **A — Migrar tudo pra `neon-serverless` (WebSocket).**
+  Suporta transações interativas. Cold start um pouco maior, mas Trigger.dev
+  jobs já preferem WebSocket. **Recomendada.**
+- **B — Manter `neon-http` no app e usar `pg` puro só no job de hard delete.**
+  Dois drivers no projeto = duas formas de fazer a mesma coisa. Evitar.
+- **C — Hard delete idempotente com retry e estado de progresso em
+  `deletion_requests`.** Mais robusto a falhas, mas bem mais complexo.
+
+**Decisão final:** S0.7, antes de escrever `hardDeleteUserData()`.
